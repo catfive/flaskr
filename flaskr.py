@@ -51,7 +51,7 @@ def add_entry():
     if not session.get('logged_in'):
         abort(401)
     g.db.execute('insert into entries (title, text) values (?, ?)',
-                 [reqeust.form['title'], request.form['text']])
+                 [request.form['title'], request.form['text']])
     g.db.commit()
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
@@ -66,7 +66,7 @@ def login():
         if request.form['password'] != app.config['PASSWORD']:
             error = 'Invalid password'
         else:
-            session['logged in'] = True
+            session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('show_entries'))
     return render_template('login.html', error=error)
